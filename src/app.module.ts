@@ -1,12 +1,19 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DbModule } from './db/db.module';
-import { UserModule } from './modules/user/user.module';
-import { Log4jsModule } from '@nestx-log4js/core';
+import { EmployeeModule } from './employee/employee.module';
 
 @Module({
-  imports: [DbModule, UserModule, Log4jsModule.forRoot()],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost:27017/nest', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    }),
+    EmployeeModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
