@@ -4,9 +4,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EmployeeModule } from './employee/employee.module';
 
+const url = process.env.MONGO_URL || 'localhost';
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/nest', {
+    MongooseModule.forRoot(`mongodb://${url}:27017/nest`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
