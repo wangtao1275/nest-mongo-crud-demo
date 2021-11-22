@@ -16,46 +16,49 @@ import { EmployeeService } from './employee.service';
 export class EmployeeController {
   constructor(private employeeService: EmployeeService) {}
 
-  @Get()
+  @Get('/abc')
   getJSON() {
     const tableData = [
       {
-        date: '2016-05-02',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333,
+        username: 'Test Employee 1',
+        anumber: 'A602501',
+        team: 'Test team 1',
+        location: 'Shanghai',
+        squad: 'Solutions',
       },
       {
-        date: '2016-05-04',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1517 弄',
-        zip: 200333,
+        username: 'Test Employee 2',
+        anumber: 'A602502',
+        team: 'Test team 2',
+        location: 'Dalian',
+        squad: 'Agile Solutions',
       },
       {
-        date: '2016-05-01',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1519 弄',
-        zip: 200333,
+        username: 'Test Employee 3',
+        anumber: 'A602503',
+        team: 'Test team 3',
+        location: 'Dalian',
+        squad: 'Agile Solutions',
       },
       {
-        date: '2016-05-03',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1516 弄',
-        zip: 200333,
+        username: 'Test Employee 4',
+        anumber: 'A602504',
+        team: 'Test team 2',
+        location: 'Shanghai',
+        squad: 'Agile Solutions',
+      },
+      {
+        username: 'Test Employee 5',
+        anumber: 'A602505',
+        team: 'Test team 1',
+        location: 'Dalian',
+        squad: 'Agile Solutions',
       },
     ];
     return tableData;
   }
 
-  @Get('/abc')
+  @Get()
   async getEmployees(): Promise<Employee[]> {
     return this.employeeService.getAll();
   }

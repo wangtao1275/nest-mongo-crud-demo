@@ -12,7 +12,7 @@ export class EmployeeService {
   ) {}
 
   /*
-   *@Description: 用户注册方法
+   *@Description:
    *@MethodAuthor: Terry Wang
    *@Date: 2021-11-19 17:38:20
    */
@@ -82,7 +82,7 @@ export class EmployeeService {
   async deleteOne(id: string): Promise<{ deleted: boolean; message?: string }> {
     try {
       // tslint:disable-next-line: no-invalid-await
-      await this.employeeModel.remove({ id });
+      await this.employeeModel.remove({ _id: id });
       return { deleted: true };
     } catch (err) {
       return { deleted: false, message: err.message };
