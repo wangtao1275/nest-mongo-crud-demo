@@ -1,4 +1,7 @@
-FROM node:latest
+FROM daocloud.io/library/node:8.0-onbuild
+
+# config npm config registry to taobao
+RUN npm config set registry https://registry.npm.taobao.org
 
 # Create app directory
 WORKDIR /usr/src/app
