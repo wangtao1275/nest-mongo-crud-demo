@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  mongo:
+    image: mongo
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+    expose:
+      - "27017"
+  app:
+    image: terry/nestdemo
+    expose:
+      - "3001"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    restart: always
+    environment:
+      MONGO_URL: mongo
+volumes:
+  mongo-data: {}
