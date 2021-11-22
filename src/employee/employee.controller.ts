@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { Employee } from 'src/employee/interfaces/employee.interface';
@@ -16,74 +16,62 @@ import { EmployeeService } from './employee.service';
 export class EmployeeController {
   constructor(private employeeService: EmployeeService) {}
 
-  @Get('/abc')
-  getJSON() {
-    const tableData = [
-      {
-        username: 'Test Employee 1',
-        anumber: 'A602501',
-        team: 'Test team 1',
-        location: 'Shanghai',
-        squad: 'Solutions',
-      },
-      {
-        username: 'Test Employee 2',
-        anumber: 'A602502',
-        team: 'Test team 2',
-        location: 'Dalian',
-        squad: 'Agile Solutions',
-      },
-      {
-        username: 'Test Employee 3',
-        anumber: 'A602503',
-        team: 'Test team 3',
-        location: 'Dalian',
-        squad: 'Agile Solutions',
-      },
-      {
-        username: 'Test Employee 4',
-        anumber: 'A602504',
-        team: 'Test team 2',
-        location: 'Shanghai',
-        squad: 'Agile Solutions',
-      },
-      {
-        username: 'Test Employee 5',
-        anumber: 'A602505',
-        team: 'Test team 1',
-        location: 'Dalian',
-        squad: 'Agile Solutions',
-      },
-    ];
-    return tableData;
-  }
-
+  /*
+   *@Description: get all employees (get)
+   *@ClassAuthor: Terry Wang
+   *@Date: 2021-11-22 15:58:51
+   */
   @Get()
   async getEmployees(): Promise<Employee[]> {
     return this.employeeService.getAll();
   }
 
+  /*
+   *@Description: get Employee by id
+   *@MethodAuthor: Terry Wang
+   *@Date: 2021-11-22 13:27:52
+   */
   @Get('/:id')
   async getById(@Param('id') id: string): Promise<Employee> {
     return this.employeeService.getOne(id);
   }
 
+  /*
+   *@Description: get Employee by username
+   *@MethodAuthor: Terry Wang
+   *@Date: 2021-11-22 13:27:52
+   */
   @Get('/username')
   async getByName(@Query('username') username: string): Promise<Employee> {
     return this.employeeService.getOneByName(username);
   }
 
-  @Post('/new')
+  /*
+   *@Description: and employee (post)
+   *@ClassAuthor: Terry Wang
+   *@Date: 2021-11-22 15:58:03
+   */
+  @Post()
   async newEmployee(@Body() employee: EmployeeDTO): Promise<Employee> {
     return this.employeeService.insertOne(employee);
   }
 
-  @Patch('/update')
+  /*
+   *@Description: update employee (put)
+   *@ClassAuthor: Terry Wang
+   *@Date: 2021-11-22 15:59:14
+   */
+  @Put()
   async updateEmployee(@Body() employee: EmployeeDTO): Promise<Employee> {
     return this.employeeService.updateOne(employee);
   }
 
-  @Delete('/delete/:id')
+  /*
+   *@Description: delete employee (delete)
+   *@ClassAuthor: Terry Wang
+   *@Date: 2021-11-22 15:59:29
+   */
+  @Delete('/:id')
   async deleteEmployee(@Param('id') id: string): Promise<{ deleted: boolean }> {
     return this.employeeService.deleteOne(id);
   }

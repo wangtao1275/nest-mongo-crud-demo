@@ -12,7 +12,7 @@ export class EmployeeService {
   ) {}
 
   /*
-   *@Description:
+   *@Description: get all employees
    *@MethodAuthor: Terry Wang
    *@Date: 2021-11-19 17:38:20
    */
@@ -28,6 +28,11 @@ export class EmployeeService {
     }));
   }
 
+  /*
+   *@Description: get employee by id
+   *@MethodAuthor: Terry Wang
+   *@Date: 2021-11-22 15:29:58
+   */
   async getOne(id: string): Promise<Employee> {
     const employee = await this.employeeModel.findOne({ _id: id }).exec();
     return {
@@ -40,6 +45,11 @@ export class EmployeeService {
     };
   }
 
+  /*
+   *@Description: get employee by username
+   *@MethodAuthor: Terry Wang
+   *@Date: 2021-11-22 15:30:14
+   */
   async getOneByName(username: string): Promise<Employee> {
     const employee = await this.employeeModel.findOne({ username }).exec();
     return {
@@ -52,6 +62,11 @@ export class EmployeeService {
     };
   }
 
+  /*
+   *@Description: add one employee
+   *@MethodAuthor: Terry Wang
+   *@Date: 2021-11-22 15:32:03
+   */
   async insertOne(employee: EmployeeDTO): Promise<Employee> {
     const retEmployee = await this.employeeModel.create(employee as any);
     return {
@@ -64,6 +79,11 @@ export class EmployeeService {
     };
   }
 
+  /*
+   *@Description: update one employee
+   *@MethodAuthor: Terry Wang
+   *@Date: 2021-11-22 15:32:31
+   */
   async updateOne(employee: EmployeeDTO): Promise<Employee> {
     const { _id } = employee;
     const foundEmployee = await this.employeeModel
@@ -79,9 +99,13 @@ export class EmployeeService {
     };
   }
 
+  /*
+   *@Description: delete one employee by id
+   *@MethodAuthor: Terry Wang
+   *@Date: 2021-11-22 15:32:47
+   */
   async deleteOne(id: string): Promise<{ deleted: boolean; message?: string }> {
     try {
-      // tslint:disable-next-line: no-invalid-await
       await this.employeeModel.remove({ _id: id });
       return { deleted: true };
     } catch (err) {

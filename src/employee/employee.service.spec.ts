@@ -8,7 +8,6 @@ import { EmployeeDoc } from './interfaces/employee-document.interface';
 
 const __id__ = '__id__';
 
-// I'm lazy and like to have functions that can be re-used to deal with a lot of my initialization/creation logic
 const mockEmployee = (
   username = 'Terry',
   id = 'a uuid',
@@ -25,7 +24,6 @@ const mockEmployee = (
   squad,
 });
 
-// still lazy, but this time using an object instead of multiple parameters
 const mockEmployeeDoc = (mock?: Partial<Employee>): Partial<EmployeeDoc> => ({
   username: mock?.username || 'Terry',
   _id: mock?.id || 'a uuid',
@@ -112,10 +110,6 @@ describe('EmployeeService', () => {
     jest.clearAllMocks();
   });
 
-  // In all the spy methods/mock methods we need to make sure to
-  // add in the property function exec and tell it what to return
-  // this way all of our mongo functions can and will be called
-  // properly allowing for us to successfully test them.
   it('should return all employees', async () => {
     jest.spyOn(model, 'find').mockReturnValue({
       exec: jest.fn().mockResolvedValueOnce(employeeDocArray),
@@ -186,7 +180,7 @@ describe('EmployeeService', () => {
       createMock<Query<EmployeeDoc, EmployeeDoc>>({
         exec: jest.fn().mockResolvedValueOnce({
           _id: __id__,
-          username: 'Garfield',
+          username: 'Herry',
           team: 'Test Team 3',
           anumber: 'A602505',
           location: 'Dalian',
@@ -196,30 +190,28 @@ describe('EmployeeService', () => {
     );
     const updatedEmployee = await service.updateOne({
       _id: __id__,
-      username: 'Garfield',
-      team: 'Test Team 3',
+      username: 'Herry',
+      team: 'Test Team 4',
       anumber: 'A602505',
-      location: 'Dalian',
+      location: 'Shanghai',
       squad: 'Agile Solutions',
     });
     expect(updatedEmployee).toEqual(
       mockEmployee(
-        'Garfield',
+        'Herry',
         __id__,
-        'Test Team 3',
+        'Test Team 4',
         'A602505',
-        'Dalian',
+        'Shanghai',
         'Agile Solutions',
       ),
     );
   });
   it('should delete a employee successfully', async () => {
-    // really just returning a truthy value here as we aren't doing any logic with the return
     jest.spyOn(model, 'remove').mockResolvedValueOnce(true as any);
     expect(await service.deleteOne('a bad id')).toEqual({ deleted: true });
   });
   it('should not delete a employee', async () => {
-    // really just returning a falsy value here as we aren't doing any logic with the return
     jest.spyOn(model, 'remove').mockRejectedValueOnce(new Error('Bad delete'));
     expect(await service.deleteOne('a bad id')).toEqual({
       deleted: false,
