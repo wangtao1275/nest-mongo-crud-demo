@@ -24,6 +24,9 @@
 
 ## Description
 
+> docker-images-containers.png show it's runing in docker successfully!
+> docker mongo is running on port 27017 and nestjs is running on port 3001 which is receiving requests and giving responses.
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
