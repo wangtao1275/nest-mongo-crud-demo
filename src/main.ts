@@ -13,6 +13,7 @@ const logger = new Logger('main.ts');
   */
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
+  app.enableCors()
   
   /*
    *@Description: 配置Swagger
